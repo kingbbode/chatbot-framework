@@ -24,13 +24,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class KnowledgeComponent {
 
     @Resource(name="redisTemplate")
-    private HashOperations<String, String, String> hashOperations;
+    HashOperations<String, String, String> hashOperations;
 
     @Autowired
     ObjectMapper objectMapper;
     
     @Autowired
-    private BotProperties botProperties;
+    BotProperties botProperties;
 
     private static final String REDIS_KEY_KNOWLEDGE = "/ultron/knowledge";
 

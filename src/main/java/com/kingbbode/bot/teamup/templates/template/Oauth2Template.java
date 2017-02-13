@@ -23,34 +23,34 @@ public class Oauth2Template  {
     @Autowired
     private BotInfoProperties environmentProperties;
     
-    public OAuth2Token token(OAuth2Token accessToken){
-        if (accessToken == null) {
-            return post(accessToken, GrantType.PASSWORD);
+    public OAuth2Token token(OAuth2Token token){
+        if (token == null) {
+            return post(token, GrantType.PASSWORD);
         }else{
-            if (accessToken.isExpired()) {
-                return refresh(accessToken);
+            if (token.isExpired()) {
+                return refresh(token);
             }
         }
-        return accessToken;
+        return token;
     }
 
-    private OAuth2Token refresh(OAuth2Token accessToken) {
-        return post(accessToken, GrantType.REFRESH);
+    private OAuth2Token refresh(OAuth2Token token) {
+        return post(token, GrantType.REFRESH);
     }
 
-    private OAuth2Token post(OAuth2Token accessToken, GrantType grantType) {
-        ResponseEntity<OAuth2Token> response = restOperations.postForEntity(environmentProperties.getTokenUrl(), getEntity(accessToken, grantType),
+    private OAuth2Token post(OAuth2Token token, GrantType grantType) {
+        ResponseEntity<OAuth2Token> response = restOperations.postForEntity(environmentProperties.getTokenUrl(), getEntity(token, grantType),
                 OAuth2Token.class);
 
         if (response.getStatusCode().equals(HttpStatus.OK)) {
-            accessToken = response.getBody();
+            token = response.getBody();
         }
 
-        return accessToken;
+        return token;
     }
     
 
-    private HttpEntity<Object> getEntity(OAuth2Token oAuth2AccessToken, GrantType grantType) {
+    private HttpEntity<Object> getEntity(OAuth2Token token, GrantType grantType) {
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, Object> data = new LinkedMultiValueMap<>();
@@ -61,7 +61,7 @@ public class Oauth2Template  {
             data.add("username", environmentProperties.getName());
             data.add("password", environmentProperties.getPassword());
         } else if (GrantType.REFRESH.equals(grantType)) {
-            data.add("refresh_token", oAuth2AccessToken.getRefreshToken());
+            data.add("refresh_token", token.getRefreshToken());
         }
         return new HttpEntity<>(data, header);
     }

@@ -1,7 +1,7 @@
 package com.kingbbode.bot.sensor;
 
-import com.kingbbode.bot.common.response.EventResponse;
 import com.kingbbode.bot.dispatcher.DispatcherBrain;
+import com.kingbbode.bot.common.response.EventResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

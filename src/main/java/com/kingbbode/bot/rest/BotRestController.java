@@ -1,4 +1,5 @@
 package com.kingbbode.bot.rest;
+
 import com.kingbbode.bot.common.base.setting.BotInfoProperties;
 import com.kingbbode.bot.common.result.BrainResult;
 import com.kingbbode.bot.teamup.message.MessageService;
@@ -23,7 +24,7 @@ public class BotRestController {
     private MessageService messageService;
     
     @Autowired
-    private BotInfoProperties botInfoProperties;
+    private BotInfoProperties  botInfoProperties;
     
     @RequestMapping(value = "/api/send", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity send(@RequestBody Map<String, String> data){

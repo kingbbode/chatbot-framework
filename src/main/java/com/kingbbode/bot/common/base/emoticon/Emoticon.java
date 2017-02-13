@@ -1,8 +1,8 @@
 package com.kingbbode.bot.common.base.emoticon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kingbbode.bot.common.base.setting.BotProperties;
 import com.kingbbode.bot.common.request.BrainRequest;
+import com.kingbbode.bot.common.base.setting.BotProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Component;
@@ -23,10 +23,10 @@ public class Emoticon {
     HashOperations<String, String, String> hashOperations;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    ObjectMapper objectMapper;
 
     @Autowired
-    private BotProperties botProperties;
+    BotProperties botProperties;
 
     private static final String REDIS_KEY_EMOTICON = "/ultron/emoticon";
     

@@ -20,9 +20,9 @@ public class BaseTemplate {
     private static final Logger logger = LoggerFactory.getLogger(BaseTemplate.class);
     
     @Autowired
-    private TokenManager tokenManager;
+    TokenManager tokenManager;
     
-    private RestOperations restOperations;
+    RestOperations restOperations;
 
     public void setRestOperations(RestOperations restOperations) {
         this.restOperations = restOperations;
@@ -70,7 +70,7 @@ public class BaseTemplate {
     private HttpEntity<Object> getEntity(Object request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", "bearer " + tokenManager.getAccessToken());
+        headers.add("Authorization", tokenManager.getAccessToken());
         return new HttpEntity<>(request, headers);
     }
 }

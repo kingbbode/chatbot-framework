@@ -1,4 +1,5 @@
 package com.kingbbode.bot.common.base.cell;
+
 import com.kingbbode.bot.common.enums.BrainResponseType;
 import com.kingbbode.bot.common.request.BrainRequest;
 import com.kingbbode.bot.common.result.BrainResult;

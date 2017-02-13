@@ -1,10 +1,10 @@
 package com.kingbbode.bot.dispatcher;
 
+import com.kingbbode.bot.common.result.BrainResult;
 import com.kingbbode.bot.common.base.factory.BrainFactory;
 import com.kingbbode.bot.common.request.BrainRequest;
 import com.kingbbode.bot.common.response.EventResponse;
 import com.kingbbode.bot.common.response.MessageResponse;
-import com.kingbbode.bot.common.result.BrainResult;
 import com.kingbbode.bot.teamup.message.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,21 +66,23 @@ public class DispatcherBrain {
         try {
             send(brainFactory.get(brainRequest.getCommand()).execute(brainRequest));
         } catch (Exception e) {
-
+            logger.warn("execute error -{}", e);
         }
     }
 
     private void send(BrainResult result) {
-        switch (result.type()) {
-            case MESSAGE:
-                messageService.sendMessage(result);
-                break;
-            case FEED:
-                messageService.writeFeed(result);
-                break;
-            case EMOTICON:
-                messageService.sendEmoticon(result);
-                break;
+        if(result!=null) {
+            switch (result.type()) {
+                case MESSAGE:
+                    messageService.sendMessage(result);
+                    break;
+                case FEED:
+                    messageService.writeFeed(result);
+                    break;
+                case EMOTICON:
+                    messageService.sendEmoticon(result);
+                    break;
+            }
         }
     }
 }

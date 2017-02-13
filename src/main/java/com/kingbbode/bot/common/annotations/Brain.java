@@ -1,4 +1,5 @@
 package com.kingbbode.bot.common.annotations;
+
 import com.kingbbode.bot.common.enums.BrainRequestType;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,8 @@
 package com.kingbbode.bot.common.base.api;
 
+import com.kingbbode.bot.common.request.BrainRequest;
 import com.kingbbode.bot.common.result.BrainCellResult;
+import com.kingbbode.bot.common.result.BrainResult;
 
 import java.util.Collection;
 

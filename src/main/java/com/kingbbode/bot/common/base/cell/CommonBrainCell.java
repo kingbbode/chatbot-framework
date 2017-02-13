@@ -1,5 +1,9 @@
 package com.kingbbode.bot.common.base.cell;
 
+import com.kingbbode.bot.common.annotations.*;
+import com.kingbbode.bot.common.base.exception.ArgumentCountException;
+import com.kingbbode.bot.common.base.exception.InvalidReturnTypeException;
+import com.kingbbode.bot.common.enums.BrainResponseType;
 import com.kingbbode.bot.common.request.BrainRequest;
 import com.kingbbode.bot.common.result.BrainCellResult;
 import com.kingbbode.bot.common.result.BrainResult;
@@ -40,8 +44,29 @@ public class CommonBrainCell extends AbstractBrainCell{
         if (!inject()) {
             return BrainResult.Builder.FAILED.room(brainRequest.getRoom()).build();
         }
-        Object result = active.invoke(object, brainRequest);
-        
+        Object result;
+        try {
+            result = active.invoke(object, brainRequest);
+        }catch(Throwable e){
+            if(e.getCause() instanceof ArgumentCountException){
+                return new BrainResult.Builder()
+                        .message(active.getAnnotation(com.kingbbode.bot.common.annotations.BrainCell.class).example())
+                        .room(brainRequest.getRoom())
+                        .type(BrainResponseType.MESSAGE)
+                        .build();
+            }else if(e.getCause() instanceof InvalidReturnTypeException){
+                return new BrainResult.Builder()
+                        .message("Method Return Type Exception!")
+                        .room(brainRequest.getRoom())
+                        .type(BrainResponseType.MESSAGE)
+                        .build();
+            }
+            return new BrainResult.Builder()
+                    .message("Server Error : " + e.getMessage())
+                    .room(brainRequest.getRoom())
+                    .type(BrainResponseType.MESSAGE)
+                    .build();
+        }
         if(result instanceof BrainCellResult){
             return new BrainResult.Builder()
                     .result((BrainCellResult) result)

@@ -1,7 +1,7 @@
 package com.kingbbode.bot.teamup.templates.template;
 
-import com.kingbbode.bot.common.base.setting.BotInfoProperties;
 import com.kingbbode.bot.common.response.EventResponse;
+import com.kingbbode.bot.common.base.setting.BotInfoProperties;
 import com.kingbbode.bot.teamup.templates.BaseTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -16,6 +16,8 @@ public class BotInfoProperties {
     Oauth oauth = new Oauth();
 
     TeamUp teamup = new TeamUp();
+    
+    Test test = new Test();
 
     public Event getEvent() {
         return event;
@@ -31,6 +33,10 @@ public class BotInfoProperties {
 
     public Api getApi() {
         return api;
+    }
+
+    public Test getTest() {
+        return test;
     }
 
     public String getReadUrl() {
@@ -72,8 +78,16 @@ public class BotInfoProperties {
     public String getApiKey(){
         return api.key;
     }
+    
+    public String getTestRoom() {
+        return test.room;
+    }
+    
+    public String getTestFeed() {
+        return test.feed;
+    }
 
-    private static class Event {
+    private class Event {
         private Feed feed = new Feed();
         private Message message = new Message();
         private String rtm;
@@ -96,7 +110,7 @@ public class BotInfoProperties {
         }
     }
 
-    private static class Feed {
+    private class Feed {
         private String write;
 
         public void setWrite(String write) {
@@ -104,7 +118,7 @@ public class BotInfoProperties {
         }
     }
 
-    private static class Message {
+    private class Message {
         private String read;
         private String send;
 
@@ -126,8 +140,8 @@ public class BotInfoProperties {
     }
 
     private class Client {
-        String id;
-        String secret;
+        private String id;
+        private String secret;
 
         public void setId(String id) {
             this.id = id;
@@ -139,8 +153,8 @@ public class BotInfoProperties {
     }
 
     private class TeamUp {
-        String id;
-        String pw;
+        private String id;
+        private String pw;
 
         public void setId(String id) {
             this.id = id;
@@ -156,6 +170,19 @@ public class BotInfoProperties {
 
         public void setKey(String key) {
             this.key = key;
+        }
+    }
+
+    private class Test {
+        private String room;
+        private String feed;
+
+        public void setRoom(String room) {
+            this.room = room;
+        }
+
+        public void setFeed(String feed) {
+            this.feed = feed;
         }
     }
 }

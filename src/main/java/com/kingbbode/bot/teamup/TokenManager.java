@@ -18,17 +18,17 @@ public class TokenManager {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
     @Autowired
-    private TeamUpEventSensor teamUpEventSensor;
+    TeamUpEventSensor teamUpEventSensor;
 
-    private OAuth2Token accessToken;
+    private OAuth2Token token;
     
     @Autowired
-    private Oauth2Template oauth2Template;
+    Oauth2Template oauth2Template;
     
     @PostConstruct
     void init(){
-        accessToken = oauth2Template.token(accessToken);
-        if(!accessToken.equals("null") && accessToken!=null) {
+        token = oauth2Template.token(token);
+        if(token !=null && token.getAccessToken()!= null && !"".equals(token.getAccessToken())) {
             teamUpEventSensor.setReady(true);
         }else{
             logger.error("Authentication Failed");
@@ -37,7 +37,7 @@ public class TokenManager {
     }
 
     public String getAccessToken() {
-        accessToken = oauth2Template.token(accessToken);
-        return accessToken.getAccessToken();
+        token = oauth2Template.token(token);
+        return token.getAccessToken();
     }
 }

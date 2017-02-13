@@ -26,12 +26,10 @@ public class EdgeTemplate extends BaseTemplate {
     @Autowired
     private BotProperties botProperties;
 
-    private static final String TEST_FEED_GROUP = "13572";
-    private static final String TEST_MESSAGE_GROUP = "70367";
-
     @Autowired
     @Qualifier(value = "messageRestOperations")
-    RestOperations restOperations;
+    private RestOperations restOperations;
+    
     @PostConstruct
     void init(){
         super.setRestOperations(restOperations);
@@ -50,7 +48,7 @@ public class EdgeTemplate extends BaseTemplate {
         if(!room.equals("999999999999") && !StringUtils.isEmpty(message)) {
             ParameterizedTypeReference<MessageResponse> p = new ParameterizedTypeReference<MessageResponse>() {
             };
-            post(environmentProperties.getSendUrl() + (botProperties.isTestMode()?TEST_MESSAGE_GROUP:room), new MessageRequest(message), p);
+            post(environmentProperties.getSendUrl() + (botProperties.isTestMode()?environmentProperties.getTestRoom():room), new MessageRequest(message), p);
         }
     }
 
@@ -58,7 +56,7 @@ public class EdgeTemplate extends BaseTemplate {
     public void writeFeed(String message, String room) {
         ParameterizedTypeReference<MessageResponse> p = new ParameterizedTypeReference<MessageResponse>() {
         };
-        post(environmentProperties.getFeedWriteUrl() + (botProperties.isTestMode()?TEST_FEED_GROUP:room),new MessageRequest(message), p);
+        post(environmentProperties.getFeedWriteUrl() + (botProperties.isTestMode()?environmentProperties.getTestFeed():room),new MessageRequest(message), p);
     }
 
     @Async
@@ -66,7 +64,7 @@ public class EdgeTemplate extends BaseTemplate {
         if(!room.equals("999999999999") && !StringUtils.isEmpty(fileId)) {
             ParameterizedTypeReference<MessageResponse> p = new ParameterizedTypeReference<MessageResponse>() {
             };
-            post(environmentProperties.getSendUrl() + (botProperties.isTestMode()?TEST_MESSAGE_GROUP:room) +"/2", new MessageRequest(fileId), p);
+            post(environmentProperties.getSendUrl() + (botProperties.isTestMode()?environmentProperties.getTestRoom():room) +"/2", new MessageRequest(fileId), p);
         }
     }
 }
